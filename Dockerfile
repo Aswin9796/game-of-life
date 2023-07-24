@@ -1,21 +1,8 @@
-# Use the official OpenJDK image as the base image
-FROM openjdk:11-jdk-slim
+FROM tomcat:8-jre8
 
-# Set the working directory inside the container
-WORKDIR /app
+RUN rm -rf /usr/local/tomcat/webapps/*
 
-# Install git to be able to clone the repository
-RUN apt-get update 
+COPY target/gameoflife.war /usr/local/tomcat/webapps/ROOT.war
 
-# Copy the Java source files into the container's working directory
-COPY GameOfLife.java .
-
-# Build the Java application
-RUN javac GameOfLife.java
-
-# Expose any necessary ports (if applicable)
-# EXPOSE 8081
-
-# Command to run the Java application
-CMD ["java", "GameOfLife"]
-
+EXPOSE 8081
+CMD ["catalina.sh", "run"]
