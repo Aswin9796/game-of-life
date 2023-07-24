@@ -7,6 +7,9 @@ WORKDIR /app
 # Install git to be able to clone the repository
 RUN apt-get update 
 
+# Copy the Java source files into the container's working directory
+COPY GameOfLife.java .
+
 # Build the Java application
 RUN javac GameOfLife.java
 
@@ -15,3 +18,4 @@ RUN javac GameOfLife.java
 
 # Command to run the Java application
 CMD ["java", "GameOfLife"]
+
